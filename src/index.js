@@ -17,14 +17,10 @@ function startCountdown() {
   startButton.setAttribute("disabled", true);
   const timeText = document.getElementById("time");
 
-   const continueCountdown = () => {
-     remainingTime--;
-   };
-   const displayCurrentNumber = () => {
-     timeText.textContent = remainingTime;
-   };
 
   const countdownInterval = setInterval(() => { 
+   
+    timeText.textContent = remainingTime;
 
     if (remainingTime !== 0){
     
@@ -33,28 +29,23 @@ function startCountdown() {
           showToast("⏰ Final countdown! ⏰");
           break;
         case 5:
-          displayCurrentNumber();
           showToast("Start the engines! 💥");
           break;
-        default:
-          displayCurrentNumber();
-          break;
       }
-
-      continueCountdown();
+      
+      remainingTime--;
 
     } else if (remainingTime === 0) {
-      displayCurrentNumber();
       showToast("Lift off! 🚀");
       clearInterval(countdownInterval);
       remainingTime = DURATION;
       
       setTimeout(() => {
-        displayCurrentNumber();
+        timeText.textContent = remainingTime;
         startButton.removeAttribute("disabled", false);
       }, 3000);
     }    
-
+ 
   }, 1000);
  
 }
